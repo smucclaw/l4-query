@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "LifeAssured": {
+      "type": "object",
+      "properties": {
+        "policyActive": {
+          "type": "boolean"
+        },
+        "age": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "policyActive",
+        "age"
+      ]
+    },
+    "HospitalizationInformation": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "enum": [
+            "sickness",
+            "accidental injury",
+            "other"
+          ]
+        },
+        "causeOfHospitalization": {
+          "type": "string",
+          "enum": [
+            "skydiving",
+            "military service",
+            "other"
+          ]
+        }
+      },
+      "required": [
+        "reason",
+        "causeOfHospitalization"
+      ]
+    }
+  }
+}
