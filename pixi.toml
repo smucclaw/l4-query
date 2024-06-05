@@ -23,6 +23,11 @@ structlog = ">=24.2.0,<24.3"
 packaging = ">=24.0,<25"
 outlines = ">=0.0.41,<0.1"
 faiss-cpu = ">=1.7.4,<1.8"
+llama-cpp-python = ">=0.2.24,<0.3"
+shiny = ">=0.10.2,<0.11"
+datamodel-code-generator = ">=0.25.6,<0.26"
+tiktoken = ">=0.7.0,<0.8"
+openai = ">=1.31.0,<1.32"
 
 [pypi-dependencies]
 fasttext = {git = "https://github.com/cfculhane/fastText.git#main"}
