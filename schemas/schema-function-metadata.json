@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Parameter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "Function": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Parameter"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "parameters"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "functions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Function"
+      }
+    }
+  },
+  "required": [
+    "functions"
+  ]
+}
