@@ -6,44 +6,10 @@ Extends the L4 ecosystem with capabilities for querying L4 programs --- or query
 
 In the simplest case ('function calling / evaluation'), this will require:
 
-1. equipping L4 with metadata capabilities
-2. a simple semantic parser (see next sub-section)
-
-## Adding metadata capabilities to (a mini) L4
-
-This is *experimental*, and should not be taken to be examples of current, valid L4.
-
-Examples:
-
-```Mini-L4
-<DATA MODEL...>
-
-EXPORT for llm-specification <comma sep names of preds/functions> 
-// so, if one runs smtg like `make-llm-spec <filename>`, it will give you a 'function-calling' schema with each function / predicate in the export list as a 'tool', ordered by their (ascending) order in the export list
-
-"""
-METADATA:
-  description: "this predicate tells us whether a person can buy a HDB"
-  keyphrases: "is eligible for a HDB" | "qualifies for a HDB"
-"""
-GIVEN person IS A Person
-DECIDE person is eligible for a HDB
-IF person's age > 18
-AND person is Singaporean
-```
-
-or if we are calculating things, e.g. how much we can claim:
-
-```Mini-L4
-"""
-METADATA:
-  description: "this function calculates how much an arbitrary life assured can claim for ..."
-"""
-GIVEN life assured IS A Life Assured
-claimable amount =  if life assured is eligible for ....
-                    then ...
-                    else ...
-```
+1. a simple semantic parser that goes from user's unstructured query to something more structured
+2. an interpreter for the structured output / function caller that uses the more structured output from semantic parser to work with L4 functions and potentially other data sources
+3. optional but would be good: equipping L4 with metadata capabilities
+4. Optional in the short term: something that takes the structured results (and explanations) from the interpreter and packages it in a more human-friendly format: whether as text, or some other kind of UI
 
 ## Semantic parser
 
@@ -81,6 +47,44 @@ And potentially in the future
 ```
 
 In terms used by the LLM APIs: each variant of CMD will correspond to a 'tool', with parameters like which L4 function the user seems to be interested in.
+
+## Optional: Adding metadata capabilities to (a mini) L4
+
+This is optional in that we could just use the type annotations and function/predicate names.
+
+This is *experimental*, and should not be taken to be examples of current, valid L4.
+
+Examples:
+
+```Mini-L4
+<DATA MODEL...>
+
+EXPORT for llm-specification <comma sep names of preds/functions> 
+// so, if one runs smtg like `make-llm-spec <filename>`, it will give you a 'function-calling' schema with each function / predicate in the export list as a 'tool', ordered by their (ascending) order in the export list
+
+"""
+METADATA:
+  description: "Figures out whether a person can buy a HDB"
+  keyphrases: "is eligible for a HDB" | "qualifies for a HDB"
+"""
+GIVEN person IS A Person
+DECIDE person is eligible for a HDB
+IF person's age > 18
+AND person is Singaporean
+```
+
+or if we are calculating things, e.g. how much we can claim:
+
+```Mini-L4
+"""
+METADATA:
+  description: "Entrypoint: Calculates how much, if anything, an arbitrary life assured can claim for."
+"""
+GIVEN life assured IS A Life Assured
+claimable amount =  if life assured is eligible for ....
+                    then ...
+                    else ...
+```
 
 ## Inspiration / Further Reading
 
