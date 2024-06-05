@@ -1,0 +1,142 @@
+from outlines import models
+from outlines import generate
+from llama_cpp import Llama
+from pathlib import Path
+
+from __future__ import annotations
+from typing_extensions import Annotated
+from enum import Enum
+from typing import Any, Union, Optional
+
+from pydantic import BaseModel, Tag
+
+
+MODEL_PATH = Path(
+    "/Users/ymh/ml_models/___mistral/___v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf"
+)
+
+llm = Llama(str(MODEL_PATH))
+model = models.LlamaCpp(llm)
+
+
+schema = """{
+    "LifeAssured": {
+      "type": "object",
+      "properties": {
+        "policyActive": {
+          "type": "boolean"
+        },
+        "age": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "policyActive",
+        "age"
+      ]
+    },
+    "HospitalizationInformation": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "enum": [
+            "sickness",
+            "accidental injury",
+            "other"
+          ]
+        },
+        "causeOfHospitalization": {
+          "type": "string",
+          "enum": [
+            "skydiving",
+            "military service",
+            "other"
+          ]
+        }
+      },
+      "required": [
+        "reason",
+        "causeOfHospitalization"
+      ]
+    }
+  }"""
+
+# ------ the correspdoning pydantic data model, auto-generated from the json schema ---
+
+
+class LifeAssured(BaseModel):
+    policyActive: bool
+    age: float
+
+
+class Reason(Enum):
+    sickness = "sickness"
+    accidental_injury = "accidental injury"
+    other = "other"
+
+
+class CauseOfHospitalization(Enum):
+    skydiving = "skydiving"
+    military_service = "military service"
+    other = "other"
+
+
+class SemanticParseError(Enum):
+    not_enough_information = "not enough information"
+
+
+class ErrorReport(BaseModel):
+    error: SemanticParseError
+    # detailed_reason: str
+
+
+class HospitalizationInformation(BaseModel):
+    reason: Reason
+    causeOfHospitalization: CauseOfHospitalization
+
+
+# -----------------------------------------------
+
+# This is just a quick experiment. Ideally our prompt would also try to handle cases where the user hasn't provided enough information (or we would use finetuning to achieve that)
+
+# Annotated[SemanticParseError, Tag("SemanticParseError")],
+# Annotated[HospitalizationInformation, Tag("HospitalizationInformation")],
+generator = generate.json(
+    model,
+    HospitalizationInformation,
+    whitespace_pattern="",
+)
+# This prompt was written for a NON-instruction-tuned model (i.e. a 'base model')
+prompt = """Examples:
+
+<info>I 35. got injured from skydiving. Am i eligible for insurance?</info>
+<response>
+  "HospitalizationInformation": {
+    "reason": "accidental injury",
+    "causeOfHospitalization": "skydiving"
+  }
+</response>
+
+<info>age 42. got injured in military service.</info>
+<response>    
+"HospitalizationInformation": {
+  "reason": "accidental injury",
+  "causeOfHospitalization": "military service"
+}
+</response>
+
+<info>age 80. injured while jumping out from a plane.</info>
+<response>"""
+result = generator(prompt, max_tokens=80)
+result
+
+#  HospitalizationInformation(reason=<Reason.accidental_injury: 'accidental injury'>, causeOfHospitalization=<CauseOfHospitalization.skydiving: 'skydiving'>)
+# NICE!
+
+
+# FOR THE FUTURE: ERROR HANDLING (though this will be best handled by fine tuning)
+# <info>sick!!!</info>
+# <response>
+#   {"SemanticParseError": "not enough information"}
+# </response>
