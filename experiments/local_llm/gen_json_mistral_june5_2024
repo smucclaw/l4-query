@@ -107,6 +107,17 @@ generator = generate.json(
     HospitalizationInformation,
     whitespace_pattern="",
 )
+
+
+"""
+TODO-Something to think about:
+want to allow L4 writer to add info about what few shot examples to use in prompt, for the key structs that will be populated from the user inputs. 
+one way to do this might be via an `examples` field in the json schema?
+Or would it be enough, in practice, to have richer descriptions for each of the fields? 
+  TODO: Experiment with this!
+"""
+
+
 # This prompt was written for a NON-instruction-tuned model (i.e. a 'base model')
 prompt = """Examples:
 
@@ -135,7 +146,7 @@ result
 # NICE!
 
 
-# FOR THE FUTURE: ERROR HANDLING (though this will be best handled by fine tuning)
+# FOR THE FUTURE: ERROR HANDLING (though this is best handled by fine tuning)
 # <info>sick!!!</info>
 # <response>
 #   {"SemanticParseError": "not enough information"}
