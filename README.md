@@ -13,14 +13,14 @@ In the simplest case ('function calling / evaluation'), this will require:
 
 ## Semantic parser
 
-The semantic parser will be something that uses stochastic methods like LLMs and potentially other NLP methods (e.g. embedding similarity).
+The semantic parser, as the name suggests, is something that tries to turn unstructured information into a more structured format. In particular, it will be something that uses stochastic methods like LLMs and potentially other NLP methods (e.g. embedding similarity).
 
 The semantic parser will be given:
 
 * a specification of the data model, translated from the L4 specification
 * metadata for / a specification of each of the L4 predicates / functions we want to export and their parameters
 
-The semantic parser will then use that to do the following:
+The semantic parser will then use that to:
 
 1. Give us a structured specification of what the user wants to be done with the relevant L4 predicates / functions, if the user's query contains enough information for that.
 
