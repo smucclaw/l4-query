@@ -17,9 +17,11 @@
       ]
     },
     "HospitalizationInformation": {
+      "description": "Information about why the life assured was hospitalized.",
       "type": "object",
       "properties": {
         "reason": {
+          "description": "Why, broadly speaking, the life assured was hospitalized.",
           "type": "string",
           "enum": [
             "sickness",
@@ -28,10 +30,12 @@
           ]
         },
         "causeOfHospitalization": {
+          "description": "Whether the sickness or accidental injury arose from certain events that would exclude the patient from coverage.",
           "type": "string",
           "enum": [
             "skydiving",
             "military service",
+            "firefighting service",
             "other"
           ]
         }
