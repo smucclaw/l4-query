@@ -29,8 +29,8 @@ class JsonSchema:
         return self._schema_str
 
 
-def load_json_schema_dict(schema_path: Path) -> dict:
-    with open(schema_path, "r") as schema_file:
-        schema = json.load(schema_file)
+def load_json_dict(json_path: Path) -> dict:
+    with open(json_path, "r") as json_file:
+        json_dict = json.load(json_file)
 
-    return schema
+    return json_dict
