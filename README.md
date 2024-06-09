@@ -92,3 +92,18 @@ claimable amount =  if life assured is eligible for ....
 * [Reliable Natural Language Understanding with Large
 Language Models and Answer Set Programming](https://arxiv.org/pdf/2302.03780)
 * <https://www.honeycomb.io/blog/hard-stuff-nobody-talks-about-llm>
+* SatLM: Satisfiability-Aided Language Models Using Declarative Prompting
+* LINC: A Neurosymbolic Approach for Logical Reasoning by Combining Language Models with First-Order Logic Provers
+* Logic-LM: Empowering Large Language Models with Symbolic Solvers for Faithful Logical Reasoning
+
+Useful-looking papers from the literature on 'agents,' though these might be more useful for the L4 copilot project
+
+* That infamous ReAct paper
+* LLM-Planner- Few-Shot Grounded Planning for Embodied Agents with Large Language Models
+* CRITIC: Large Language Models Can Self-Correct with Tool-Interactive Critiquing
+* AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation
+
+Libraries
+
+* <https://github.com/timlrx/simple-ai-agents>
+* <https://github.com/KennyVaneetvelde/atomic_agents>
