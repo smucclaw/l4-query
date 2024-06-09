@@ -3,7 +3,7 @@
     {
       "name": "calculate_claimable_amount",
       "main_entrypoint": true,
-      "description": "Calculates how much, if anything, an arbitrary life assured can claim for their hospitalization for sickness or accidental injury.",
+      "description_for_semantic_parser": "Calculates how much, if anything, an arbitrary life assured can claim for their hospitalization for sickness or accidental injury.",
       "parameters": [
         {
           "name": "life_assured",
@@ -18,7 +18,7 @@
     {
       "name": "is_eligible_to_claim_for_hospitalization",
       "main_entrypoint": false,
-      "description": "Determines if an arbitrary life assured is eligible to claim for their hospitalization for sickness or accidental injury.",
+      "description_for_semantic_parser": "Determines if an arbitrary life assured is eligible to claim for their hospitalization for sickness or accidental injury.",
       "parameters": [
         {
           "name": "life_assured",
