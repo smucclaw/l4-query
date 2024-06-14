@@ -95,7 +95,8 @@ Language Models and Answer Set Programming](https://arxiv.org/pdf/2302.03780)
 * SatLM: Satisfiability-Aided Language Models Using Declarative Prompting
 * LINC: A Neurosymbolic Approach for Logical Reasoning by Combining Language Models with First-Order Logic Provers
 * Logic-LM: Empowering Large Language Models with Symbolic Solvers for Faithful Logical Reasoning
-
+* Relational Programming with Foundation Models
+  * They basically allow interfacing with language models via an FFI for their compiler. This is intriguing, but probably doesn't make as much sense for us, given our desiderata and usecase.
 Useful-looking papers from the literature on 'agents,' though these might be more useful for the L4 copilot project
 
 * That infamous ReAct paper
